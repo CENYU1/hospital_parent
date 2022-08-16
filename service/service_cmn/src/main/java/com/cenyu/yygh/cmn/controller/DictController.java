@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Api(tags = "数据字典接口")
@@ -23,5 +24,11 @@ public class DictController {
     public Result findChildData(@PathVariable Long id) {
         List<Dict> list = dictService.findChildData(id);
         return Result.ok(list);
+    }
+
+    @ApiOperation(value = "导出数据字典接口")
+    @GetMapping("/exportData")
+    public void exportData(HttpServletResponse response) {
+        dictService.exportDictData(response);
     }
 }
